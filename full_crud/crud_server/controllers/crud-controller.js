@@ -94,22 +94,20 @@ router.put("/update/:id", (req, res) => {
   }
 });
 
-// [DELETE] Remove an item from the db
+// [ DELETE ] - Remove an item from the db
 router.delete("/delete/:id", (req, res) => {
   try {
     let indexOfItem = db.findIndex((i) => i.id == req.params.id);
     db.splice(indexOfItem, 1);
-
     db.forEach((i, idx) => {
       i.id = idx + 1;
     });
-
     res.status(200).json({
       Deleted: 1,
       Results: db,
     });
   } catch (err) {
-    // console.log(err)
+    // console.log(err);
     res.status(500).json({
       Error: err,
     });
